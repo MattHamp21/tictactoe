@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import Game from './Game';
-
+import {Square, Board, calculateWinner} from './Game';
 function App() {
   return (
-   <Game />
+  <>
+    <div className="App">
+     <h1>Hi! Let’s Play Tic Tac Toe!</h1>
+     <Board />
+    </div>
+  </>
   );
-}
-
+};
 export default App;
