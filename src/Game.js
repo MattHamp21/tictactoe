@@ -8,20 +8,27 @@ function Square({ onClick, value }) {
   );
 }
 
+
+
+
+
+
 function Board () {
   const [squares, setSquares] = React.useState(Array(9).fill(null))
   const [isX, setIsX] = React.useState(true);
 
   const handleClick = (i) => {
-    if (calculateWinner(squares) || squares[i]) {
-      return
-    }
+    if (winner|| squares[i]) {
+        return
+      }
     
     squares[i] = isX ? 'X' : 'O'
     setSquares(squares)
     setIsX(!isX)
   }
-
+  const renderSquare = (i) => {
+    return <Square value={squares[i]} onClick={() => handleClick(i)} />
+  }
   const winner = calculateWinner(squares)
   let status
   
@@ -36,11 +43,15 @@ function Board () {
     setSquares(Array(9).fill(null))
   }
 
-  const renderSquare = (i) => {
-    return <Square value={squares[i]} onClick={() => handleClick(i)} />
-  }
+ const youWin = winner =>{
+    alert('Winner')
+ }
+
+
+  
   
   return (
+
     <div className="board">
       <div className="board-row">
         {renderSquare(0)}
@@ -57,7 +68,7 @@ function Board () {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
-      
+      {winner ? (<p>{`${status}`}</p>):''}
       <button className="restart" onClick={handleRestart}>Play Again!</button>
     </div>
   )
@@ -78,7 +89,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < winningPatterns.length; i++) {
     const [a, b, c] = winningPatterns[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return squares[a]
     }
   }
   return null;
